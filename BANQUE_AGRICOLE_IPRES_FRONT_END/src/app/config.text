@@ -1,0 +1,243 @@
+rose : #D50858
+vert : #CAD402
+
+
+
+
+
+      // POST api/values
+        [HttpPost ]
+        [Consumes("multipart/form-data")] 
+         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        [Route("AddPensionnaire"),DisableRequestSizeLimit]
+        public async Task<IActionResult> CreatePensionnaire()
+        {
+            var file = Request.Form.Files[0];
+            if(file == null)
+            {
+                return new JsonResult("le fichier est null") { StatusCode = 500 };
+            }
+            try
+            {
+                DirectoryInfo d = new DirectoryInfo("Fichier/Archive"); //Assuming Test is your Folder
+                FileInfo[] Files = d.GetFiles(); //Getting Text files
+                foreach (FileInfo files in Files)
+                {
+                    if (files.Name == file.FileName)
+                    {
+                        Console.WriteLine(files.FullName);
+                        return new JsonResult("le fichier existe déja") { StatusCode = 500 };
+                    }
+                    else
+                    {
+                        continue;
+                    }
+                }
+            }
+            catch (System.Exception)
+            {
+
+                throw;
+            }
+            Pensionnaire pensionnaire = new Pensionnaire();
+            FichierPaiement fichierPaiement = new FichierPaiement();
+            Journalisation journalisation = new Journalisation();
+            JournalisationController journalisationController = new JournalisationController(_ipresDBContext ,_userManager);
+            var list = new List<Pensionnaire>();
+            var uploads = Path.Combine("Fichier/Archive", file.FileName);
+            bool ok = false;
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var user = await _userManager.FindByEmailAsync(userId);
+            int i;
+            if (file.FileName.Length < 11 )
+            {
+                return new JsonResult("Veuillez vérifier le nom du fichier. Exemple:CNCAS122023.txt") { StatusCode = 500 };
+            }
+            else
+            {
+                int mois = Int32.Parse(file.FileName.Substring(5, 2));
+                int annee = Int32.Parse(file.FileName.Substring(7, 4));
+                string extension = file.FileName.Substring(12, 3);
+                fichierPaiement.Id = Guid.NewGuid().ToString();
+                fichierPaiement.IdUsers = user.Id;
+                fichierPaiement.Nom = file.FileName;
+                fichierPaiement.DatePourPaiement = file.FileName.Substring(5, 6);
+                fichierPaiement.DateAjout = DateTimeOffset.UtcNow.DateTime.ToLocalTime().ToString("yyyy-MM-dd HH:mm:ss");
+
+
+
+                if (!file.FileName.EndsWith(".txt", StringComparison.OrdinalIgnoreCase) && !file.FileName.EndsWith(".xlsx", StringComparison.OrdinalIgnoreCase))
+                {
+                    return new JsonResult("Le nom de fichier doit se terminer par l'extension .txt ou .xlsx") { StatusCode = 500 };
+                }
+
+                if (!file.FileName.StartsWith("CNCAS", StringComparison.OrdinalIgnoreCase))
+                {
+                    return new JsonResult("Le nom de fichier doit commencer par 'CNCAS'") { StatusCode = 500 };
+                }
+
+                if ( mois < 1 || mois > 12)
+                {
+                    return new JsonResult("Le nom de fichier doit inclure un mois valide au format MM (par exemple, 'CNCAS012023.txt' pour janvier 2023)") { StatusCode = 500 };
+                }
+
+                // Si toutes les conditions sont remplies, continuer avec le reste du code...
+
+                //else
+                //{
+
+                using (var fileStream = new FileStream(Path.Combine("Fichier/Traitement", file.FileName), FileMode.Create))
+                    {
+                        await file.CopyToAsync(fileStream);
+                        ok = true;
+
+                    }
+                    if (ok)
+                    {
+                        try
+                        {
+                            string[] lines = await System.IO.File.ReadAllLinesAsync("Fichier/Traitement/" + file.FileName);
+
+                            if(file.FileName.EndsWith(".txt", StringComparison.OrdinalIgnoreCase))
+                            {
+                                for (i = 1; i < lines.Length - 1; i++)
+                                {
+
+                                    if (lines[i].Length > 0)
+                                    {
+
+
+                                        try
+                                        {
+                                            list.Add(new Pensionnaire
+                                            {
+                                                Id = Guid.NewGuid().ToString(),
+                                                MatriculePensionnaire = lines[i].Substring(20, 11),
+                                                Nom = lines[i].Substring(46, 14),
+                                                Prenom = lines[i].Substring(60, 16),
+                                                SalaireNet = Int32.Parse(lines[i].Substring(31, 15)),
+                                                Categories = lines[i].Substring(77, 2),
+                                                Regime = lines[i].Substring(79, 1),
+                                                SalaireBrut = Int32.Parse(lines[i].Substring(80, 7)),
+                                                AvanceTabaski = Int32.Parse(lines[i].Substring(87, 6)),
+                                                Impot = Int32.Parse(lines[i].Substring(93, 5)),
+                                                Cms = lines[i].Substring(98, 5),
+                                                RetenuTabaski = Int32.Parse(lines[i].Substring(103, 5)),
+                                                AvanceTiers = Int32.Parse(lines[i].Substring(114, 6)),
+                                                Hospitalisation = lines[i].Substring(120, 6),
+                                                AssuranceRetenu = Int32.Parse(lines[i].Substring(126, 4)),
+                                                Penali = lines[i].Substring(108, 6),
+                                                Age = lines[i].Substring(12, 5),
+                                                Dev = lines[i].Substring(17, 3),
+                                                Cp = lines[i].Substring(76, 1),
+                                                DateCreation = DateTime.Now,
+                                                DateModification = DateTime.Now,
+                                                DatePaiement = file.FileName.Substring(5, 6)
+
+                                            });
+                                        }
+                                        catch (System.Exception)
+                                        {
+
+                                            throw;
+                                        }
+
+                                    }
+                                    else
+                                    {
+                                        return new JsonResult("Veuillez vérifier y'a des donnees qui manquent line : " + i) { StatusCode = 500 };
+
+                                    }
+
+
+                                }
+                            }
+                            else
+                            {
+                                ExcelPackage.LicenseContext = OfficeOpenXml.LicenseContext.NonCommercial;
+                                using (var stream = new MemoryStream())
+                                {
+                                    await file.CopyToAsync(stream);
+                                    using (var package = new ExcelPackage(stream))
+                                    {
+                                        ExcelWorksheet worksheet = package.Workbook.Worksheets[0];
+                                        var rowsCount = worksheet.Dimension.Rows;
+                                        for (int row = 2; row <= rowsCount; row++)
+                                        {
+                  #pragma warning disable CS8602 // Déréférencement d'une éventuelle référence null.
+                                            //(int)worksheet.Cells[row, 9].Value
+                                            list.Add(new Pensionnaire
+                                            {
+                                                Id = Guid.NewGuid().ToString(),
+                                                MatriculePensionnaire = worksheet.Cells[row, 1].Value.ToString().Trim(),
+                                                Nom = worksheet.Cells[row, 4].Value.ToString().Trim(),
+                                                Prenom = worksheet.Cells[row, 3].Value.ToString().Trim(),
+                                                SalaireNet = Int32.Parse(worksheet.Cells[row, 9].Value.ToString().Trim()),
+                                                Categories = "",
+                                                Regime = "",
+                                                SalaireBrut = Int32.Parse(worksheet.Cells[row, 9].Value.ToString().Trim()),
+                                                AvanceTabaski = 0,
+                                                Impot = 0,
+                                                Cms = "",
+                                                RetenuTabaski = 0,
+                                                AvanceTiers = 0,
+                                                Hospitalisation = "",
+                                                AssuranceRetenu = 0,
+                                                Penali = "",
+                                                Age = "" ,
+                                                Dev = "" ,
+                                                Cp = "" ,
+                                                DateCreation = DateTime.Now,
+                                                DateModification = DateTime.Now,
+                                                DatePaiement = file.FileName.Substring(5, 6)
+
+                                            });
+         #pragma warning restore CS8602 // Déréférencement d'une éventuelle référence null.
+
+                                        }
+                                        
+                                    }
+                                }
+
+
+                            }
+
+
+                        }
+                        catch (System.Exception)
+                        {
+
+                            throw;
+                        }
+                        _ipresDBContext.Pensionnaires.AddRange(list);
+                        await _ipresDBContext.SaveChangesAsync();
+                        try
+                        {
+                            await using (var fileStream = new FileStream(Path.Combine("Fichier/Archive", file.FileName), FileMode.Create))
+                            {
+                                await file.CopyToAsync(fileStream);
+                                System.IO.File.Delete("Fichier/Traitement/" + file.FileName);
+                                fichierPaiement.Url = Path.Combine("Fichier/Archive", file.FileName);
+                                _ipresDBContext.FichierPaiements.Add(fichierPaiement);
+                                await _ipresDBContext.SaveChangesAsync();
+
+                            }
+                        }
+                        catch (System.Exception)
+                        {
+
+                            throw;
+                        }
+                        
+                        //journalisation.Action = "upload file and save pensionnaire";
+                        //journalisation.IdUsers = user.Id;
+                        //await journalisationController.CreateJournalisation(journalisation);
+                    }
+
+                //}
+
+            }
+
+            return Ok();
+
+        }

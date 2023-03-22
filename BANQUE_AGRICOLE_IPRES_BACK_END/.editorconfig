@@ -1,0 +1,7 @@
+﻿[*.cs]
+
+# IDE0008: Utiliser un type explicite
+dotnet_diagnostic.IDE0008.severity = none
+
+# IDE0055: Corriger la mise en forme
+dotnet_diagnostic.IDE0055.severity = silent

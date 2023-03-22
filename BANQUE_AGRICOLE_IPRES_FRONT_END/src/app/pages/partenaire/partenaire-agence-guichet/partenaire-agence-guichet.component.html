@@ -1,0 +1,47 @@
+
+ <section class="content">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card card-pink card-outline">
+          <div class="card-header">
+            <h3 class="card-title">Ajouter un nouveau guichet</h3>
+          </div>
+          <!-- <div class="container" *ngIf="!post; else forminfo" novalidate> -->
+            <div class="container" >
+  
+            <form [formGroup]="formGroup" (ngSubmit)="onSubmit(formGroup.value)" class="form">
+  
+              <mat-form-field class="form-element">
+                <input matInput placeholder="Libelle" formControlName="libelle">
+                <mat-error *ngIf="!name.valid && name.touched">
+                  {{ titleAlert }}
+                </mat-error>
+              </mat-form-field>
+              <mat-form-field appearance="fill">
+                <mat-label>Agence</mat-label>
+                <select matNativeControl required formControlName="idAgence">
+                  <option> </option>
+                  <option *ngFor="let item of agencedata" [value]="item.id">
+                    {{item.libelle}}
+                  </option>
+                </select>
+              </mat-form-field>
+  
+              <!-- <div class="form-element">
+                <mat-checkbox formControlName="validate" value="1">Name min. 3 characters</mat-checkbox>
+              </div> -->
+  
+              <div class="form-element">
+                <button mat-flat-button color="succes" type="submit" class="button" [disabled]="!formGroup.valid">
+                  Enregistrer </button>
+              </div>
+  
+            </form>
+          </div>
+  
+        </div>
+      </div>
+    </div>
+  </div>
+  </section>

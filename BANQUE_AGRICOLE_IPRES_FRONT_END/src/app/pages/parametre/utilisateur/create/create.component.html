@@ -1,0 +1,131 @@
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1 class="m-0 text-dark">Ajouter utilisateur</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item active"> Ajouter utilisateur </li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+<section class="content">
+    <div class="container">
+        <div class="card card-pink card-outline mat-elevation-z8 ">
+            <div class="card-header">
+                <!-- <button mat-raised-button color="primary" class="excel" (click)="exportexcel()">Excel</button> -->
+            </div>
+            <div class="card-body">
+                <br>
+
+                                <form [formGroup]="infoPerso" (ngSubmit)="SaveData(infoPerso.value)" class="form">
+                                    <div class="row">
+                                        <div class="col">
+                                            <mat-form-field appearance="outline">
+                                                <mat-label>Prenom</mat-label>
+                                                <input matInput placeholder="Prenom" formControlName="prenom" required>
+                                            </mat-form-field>
+                                        </div>
+
+                                        <div class="col">
+                                            <mat-form-field appearance="outline">
+                                                <mat-label>Nom</mat-label>
+                                                <input matInput placeholder="Nom" formControlName="nom" required>
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col">
+                                            <mat-form-field appearance="outline">
+                                                <mat-label>Login</mat-label>
+                                                <input matInput placeholder="Login" formControlName="username"
+                                                    required>
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col">
+                                            <mat-form-field appearance="outline">
+                                                <mat-label>Telephone</mat-label>
+                                                <span matPrefix>+221 &nbsp;</span>
+                                                
+                                                <input matInput placeholder="Téléphone" formControlName="telephone"
+                                                    required  type="tel" matInput placeholder="00-000-00-00">
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <!-- <br> -->
+                                    <div class="row">
+                                        <div class="col">
+                                            <mat-form-field appearance="outline">
+                                                <mat-label>Email</mat-label>
+                                                <input matInput placeholder="Email" formControlName="email" required
+                                                    type="email">
+                                              
+                                                <mat-error
+                                                    *ngIf="!infoPerso.controls['email'].valid && infoPerso.controls['email'].touched">
+                                                    {{ getErrorEmail() }}
+                                                </mat-error>
+                                            </mat-form-field>
+                                        </div>
+
+                                        <div class="col">
+                                            <mat-form-field appearance="outline">
+                                                <mat-label>Mot de passe</mat-label>
+                                                <input matInput placeholder="Mot de passe" formControlName="password"
+                                                    required type="password">
+                                                <!-- <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' :
+                                                    'visibility'}}</mat-icon> -->
+                                                <mat-error
+                                                    *ngIf="!infoPerso.controls['password'].valid && infoPerso.controls['password'].touched">
+                                                    {{ getErrorPassword() }}
+                                                </mat-error>
+
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col">
+                                            <mat-form-field appearance="outline">
+                                                <mat-label> confirmer le mot de passe</mat-label>
+                                                <input matInput placeholder="Mot de passe"
+                                                    formControlName="confirm-password" required type="password">
+                                                    <!-- <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' :
+                                                        'visibility'}}</mat-icon> -->
+                                                    <mat-error *ngIf="!infoPerso.controls['confirm-password'].value == infoPerso.controls['password'].value " >
+                                                        <!-- {{ checkPasswordConfirm() }} -->
+                                                        verifiez votre confirmation de mot de passe
+                                                      </mat-error>
+
+                                            </mat-form-field>
+
+                                            <!-- <mat-form-field *ngIf="infoPerso.controls['password'].valid">
+                                                <input matInput placeholder="Confirm your password" formControlName="confirm-password">
+                                        <mat-error *ngIf="infoPerso.controls['confirm-password'].pristine || infoPerso.controls['confirm-password'].errors?.MatchPassword">Password does not match</mat-error>
+                                            </mat-form-field> -->
+                                        </div>
+
+                                    </div>
+                                    <div>
+                                    </div>
+                                    <br>
+                                    <br>
+                                    <hr>
+                                    <div class="form-element">
+                                        <button mat-flat-button color="succes" type="submit" class="button"
+                                            [disabled]="!infoPerso.valid">
+                                            Enregistrer </button>
+                                    </div>
+                                </form>
+
+
+                   
+
+                            </div>
+                        <!-- </div> -->
+                    <!-- </div>
+                </div>
+            </div> -->
+        </div>
+
+    </div>
+</section>

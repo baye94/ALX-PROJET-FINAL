@@ -1,0 +1,33 @@
+<br>
+<form [formGroup]="secondFormGroup" (ngSubmit)="SaveData(secondFormGroup.value)">
+    <div class="row">
+        <div class="col-md-6">
+            <mat-form-field >
+                <mat-label> Libelle </mat-label>
+                <input matInput placeholder="Libelle de l'agence" formControlName="libelle" required type="text">
+                <mat-error *ngIf="!secondFormGroup.controls['libelle'].valid && secondFormGroup.controls['libelle'].touched">
+                    {{ titleAlert }}
+                  </mat-error>
+            </mat-form-field>
+        </div>
+
+        <div class="col-md-6">
+            <mat-form-field  >
+                <mat-label>Adresse</mat-label>
+                <input matInput placeholder="Adresse de l 'agence" formControlName="adresse" required type="text">
+                <mat-error *ngIf="!secondFormGroup.controls['adresse'].valid && secondFormGroup.controls['adresse'].touched">
+                    {{ titleAlert }}
+                  </mat-error>
+            </mat-form-field>
+        </div>
+
+    </div>
+    <div>
+    </div>
+     <br>
+  <hr>
+    <div class="form-element">
+        <button mat-flat-button color="succes" type="submit" class="button" [disabled]="!secondFormGroup.valid">
+            Enregistrer </button>
+    </div>
+</form>

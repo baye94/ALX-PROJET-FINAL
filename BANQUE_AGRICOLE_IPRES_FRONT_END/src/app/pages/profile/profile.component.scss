@@ -1,0 +1,31 @@
+.user-img {
+    --pf-border: 3px solid #adb5bd;
+    --pf-padding: 3px;
+}
+
+.user-block {
+    pf-image {
+        --pf-border: 2px solid #adb5bd;
+        --pf-padding: 2px;
+        float: left;
+    }
+}
+
+.fermer{
+   
+    height: 20px;
+    width: 20px;
+}
+.actif{
+    width: 20px;
+    height: 20px;
+background-color: green;
+}
+.test{
+    background-color: green;
+}
+
+.scroll {
+    max-height: 500px;
+    overflow-y: auto;
+}

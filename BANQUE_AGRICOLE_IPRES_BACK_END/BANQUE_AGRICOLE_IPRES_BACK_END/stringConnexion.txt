@@ -1,0 +1,73 @@
+dotnet ef dbcontext scaffold Name=IpresDB Pomelo.EntityFrameworkCore.Mysql --output-dir Models --context-dir Data --namespace IpresDB.Data --context IpresDBContext -f --no-onconfiguring
+dotnet ef migrations add MyFirstMigration --context IpresDBContext
+dotnet ef database update --context IpresDBContext
+Add-Migration InitialCreate –IgnoreChanges
+base.OnModelCreating(modelBuilder);
+
+
+"Serilog": {
+    "Using":  [ "Serilog.Sinks.Console", "Serilog.Sinks.File" ],
+    "MinimumLevel": "Error",
+    "WriteTo": [
+      { "Name": "Console" },
+      { "Name": "File", 
+      "Args": { 
+        "path": "./Fichier/logs/logs-.log", 
+        "rollingInterval":"Day",
+        "outputTemplate":"{Timestamp:o} [{Level:u3}] ({Application}/{MachineName}/{ThreadId}) {Message}{NewLine}{Exception}"
+        } 
+      }
+    ]
+    
+  },
+
+
+
+[HttpPost]
+         public async Task<List<Pensionnaire>> Post(IFormFile file ,DateTime date)
+         {
+             var list = new List<Pensionnaire>();
+
+             date = DateTime.UtcNow;
+             using (var stream = new MemoryStream())
+             {
+                 await file.CopyToAsync(stream);
+                 using (var package = new ExcelPackage(stream))
+                 {
+                     ExcelWorksheet worksheet = package.Workbook.Worksheets[0];
+                     var rowsCount = worksheet.Dimension.Rows;
+                     for (int row = 2; row <= rowsCount; row++)
+                     {
+ #pragma warning disable CS8602 // Déréférencement d'une éventuelle référence null.
+                         //(int)worksheet.Cells[row, 9].Value
+                         list.Add(new Pensionnaire
+                         {
+                             Id = Guid.NewGuid().ToString(),
+                             MatriculePensionnaire = worksheet.Cells[row,1].Value.ToString().Trim() ,
+                             Nom = worksheet.Cells[row, 2].Value.ToString().Trim(),
+                             Prenom= worksheet.Cells[row, 3].Value.ToString().Trim(),
+                             SalaireNet = 4,
+                             Categories = 3,
+                             Regime = 3,
+                             SalaireBrut = 2,
+                             AvanceTabaski = 2,
+                             Impot = 1,
+                             Cms = 2,
+                             RetenuTabaski = 0,
+                             Pension = 0,
+                             AvanceTiers = 0,
+                             Hospitalisation = 0,
+                             AssuranceRetenu = 0,
+                             DateCreation = DateTime.Now,
+                             DateModification = DateTime.Now,
+                             DatePaiement = date
+
+                         });
+                       #pragma warning restore CS8602 // Déréférencement d'une éventuelle référence null.
+
+                     }
+                     return list;
+                 }
+             }
+
+         }

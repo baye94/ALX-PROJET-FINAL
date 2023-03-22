@@ -1,0 +1,54 @@
+.addguichet{
+    background: green;
+    color: #fff;
+}
+
+.fill-remaining-space {
+    /* This fills the remaining space, by using flexbox. 
+       Every toolbar row uses a flexbox row layout. */
+    flex: 1 1 auto;
+  }
+  
+  .container {
+    padding: 10px;
+  }
+  
+  .form {
+    min-width: 150px;
+    max-width: 500px;
+    width: 100%;
+  }
+  
+  .form-element {
+    padding: 5px 0px 25px 2px;
+    width: 100%;
+  }
+  
+  .button {
+    width: 100%;
+  }
+  .bar{
+    background: #e83e8c;
+  }
+  .button{
+    background-color: #CAD402;
+    color: #fff;
+  }
+  .card-footer{
+    background: #fff;
+  }
+  @media print {
+    #print-section {
+     background-color:  blue!important;
+    }
+    thead {
+      background-color: #CAD402;
+    }
+  }
+
+  .t>img{
+    height: 33!important;
+    width: 33;
+    background-color: rebeccapurple;
+    size: 12px!important;
+  }

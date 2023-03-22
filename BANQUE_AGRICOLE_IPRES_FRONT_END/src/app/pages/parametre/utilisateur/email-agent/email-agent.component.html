@@ -1,0 +1,30 @@
+<form [formGroup]="secondFormGroup" (ngSubmit)="SaveData(secondFormGroup.value)">
+    <div class="row">
+        <div class="col-md-6">
+            <mat-form-field  appearance="outline">
+                <mat-label>Ancien email</mat-label>
+                <input matInput disabled [value]="email">
+              </mat-form-field>
+        </div>
+       
+        
+        <div class="col-md-6">
+            <mat-form-field  appearance="outline">
+                <mat-label>Nouveau email </mat-label>
+                <input matInput placeholder="nouveau email" formControlName="email" required type="email" >
+                <mat-error *ngIf="!secondFormGroup.controls['email'].valid && secondFormGroup.controls['email'].touched">
+                    {{ getErrorEmailNouveau() }}
+                  </mat-error>
+            </mat-form-field>
+        </div>
+
+    </div>
+    <div>
+    </div>
+     <br>
+
+    <div class="form-element">
+        <button mat-flat-button color="succes" type="submit" class="button" [disabled]="!secondFormGroup.valid">
+            Enregistrer </button>
+    </div>
+</form>

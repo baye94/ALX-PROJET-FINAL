@@ -1,0 +1,9 @@
+<h1 mat-dialog-title>Mise á jours du compte</h1>
+<div mat-dialog-content>
+ <p *ngIf="status == 1"> Désactiver le compte</p>
+ <p *ngIf="status == 0"> Activer le compte</p>
+</div>
+<div mat-dialog-actions>
+  <button mat-button mat-dialog-close>Non</button>
+  <button mat-button mat-dialog-close cdkFocusInitial (click)="Deactivate()">Oui</button>
+</div>

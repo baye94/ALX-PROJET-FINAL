@@ -1,0 +1,76 @@
+
+<div class="container">
+  <div class="row">
+    <!-- left column -->
+    <div class="col-md-12">
+      <!-- jquery validation -->
+      <div class="card card-pink">
+        <div class="card-header">
+          <h3 class="card-title">Ajouter un nouveau guichet</h3>
+        </div>
+        <!-- /.card-header -->
+        <!-- form start -->
+        <form [formGroup]="Reactiveform" (ngSubmit)="SaveGuichet()">
+          <div class="card-body">
+            <div class="form-group" hidden>
+              <label>Id</label>
+              <input placeholder="id" matInput formControlName="id" require>
+            </div>
+            <div class="row">
+               <div class="col">
+                <div class="form-group">
+                  <label>Libelle</label>
+                  <input placeholder="libelle" matInput formControlName="libelle" required="">
+                </div>
+
+               </div>
+             
+            </div>  
+            <div class="row">
+              <div class="col">
+                <mat-form-field>
+                  <mat-label>Agence</mat-label>
+                  <mat-select formControlName="agenceNum">
+                    <mat-option *ngFor="let item of agencedata" [value]="item.id">
+                      {{item.libelle}}
+                    </mat-option>
+                    <mat-option>
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+
+              </div>
+              <div class="col">
+                <div class="form-group">
+                  <label>Numero Guichet</label>
+                  <input placeholder="numGuichet" matInput formControlName="numGuichet">
+                </div>
+
+              </div>
+
+            </div>
+            
+          </div>
+          <!-- /.card-body -->
+          <div class="card-footer">
+            <!-- <button type="submit" class="btn btn-success">Enregistrer</button> -->
+            <div mat-dialog-actions>
+              <button mat-flat-button color="warn" mat-dialog-close>Close</button>
+              <button type="submit" mat-flat-button color="success" class="addguichet" cdkFocusInitial
+                onclick="SaveGuichet()">Enregistrer</button>
+            </div>
+
+          </div>
+        </form>
+      </div>
+      <!-- /.card -->
+    </div>
+    <!--/.col (left) -->
+    <!-- right column -->
+
+    <!--/.col (right) -->
+  </div>
+  <!-- /.row -->
+</div><!-- /.container-fluid -->
+
+<!-- /.content -->

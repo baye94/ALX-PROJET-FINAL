@@ -1,0 +1,36 @@
+<form [formGroup]="secondFormGroup" (ngSubmit)="SaveData(secondFormGroup.value)">
+    <div class="row">
+        <div class="col-md-6">
+            <mat-form-field appearance="fill">
+                <mat-label>Agence</mat-label>
+                <select matNativeControl required formControlName="idUser" (change)="onChange($event)">
+                    <option> </option>
+                    <option *ngFor="let item of agencedata" [value]="item.id">
+                        {{item.libelle}}
+                    </option>
+                </select>
+            </mat-form-field>
+        </div>
+
+        <div class="col-md-6">
+            <mat-form-field appearance="fill">
+                <mat-label>Guichet</mat-label>
+                <select matNativeControl required formControlName="idGuichet">
+                    <option> </option>
+                    <option *ngFor="let item of guichetData" [value]="item.id">
+                        {{item.libelle}}
+                    </option>
+                </select>
+            </mat-form-field>
+        </div>
+
+    </div>
+    <div>
+    </div>
+    <div class="form-element">
+        <button mat-flat-button color="succes" type="submit" class="button"
+            [disabled]="!secondFormGroup.valid">
+            Enregistrer </button>
+    </div>
+</form>
+

@@ -1,0 +1,87 @@
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1 class="m-0 text-dark">Horaires</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a routerLink="/parametre">Parametre</a></li>
+                    <li class="breadcrumb-item active">Horaires</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+
+<section class="content">
+    <div class="card card-pink card-outline ">
+        <div class="card-body mat-elevation-z8 ">
+            <div class="row">
+                <div class="col-sm-6 col-md-6">
+                    <div class="list-group">
+                        <a class="list-group-item" data-toggle="modal" data-target="#modal-sm-O">
+                            <h4 class="list-group-item-heading"><i
+                                    class="fa fa-large fa fa-lock-open"></i>&nbsp;&nbsp;Ouverture: {{ouverture || 0}} </h4>
+                            <p class="list-group-item-text">Heure d'ouverture du systeme</p>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-md-6">
+                    <div class="list-group">
+                        <a class="list-group-item" data-toggle="modal" data-target="#modal-sm-F">
+                            <h4 class="list-group-item-heading"><i
+                                    class="fa fa-large fa fa-lock"></i>&nbsp;&nbsp;Fermeture: {{fermeture || 0}} </h4>
+                            <p class="list-group-item-text">Horaire de fermeture du systeme </p>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Horaire Ouverture Modal -->
+<div class="modal fade" id="modal-sm-F">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Horaire fermeture</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <ngx-mat-timepicker [(ngModel)]="myTimePickerF">
+                </ngx-mat-timepicker>
+            </div>
+            <div class="modal-footer justify-content-between">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+                <button type="button" class="btn btn-primary" (click)="HoraireFermeture()">Enregistrer</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Horaire Ouverture Modal -->
+
+<!-- Horaire Fermeture Modal -->
+<div class="modal fade" id="modal-sm-O">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Horaire Ouverture</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <ngx-mat-timepicker [(ngModel)]="myTimePicker">
+                </ngx-mat-timepicker>
+            </div>
+            <div class="modal-footer justify-content-between">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+                <button type="button" class="btn btn-primary" (click)="HoraireOuverture()">Enregistrer</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Horaire Fermeture Modal -->

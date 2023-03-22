@@ -1,0 +1,71 @@
+<section class="content">
+    <div class="container">
+        <div class="card card-pink card-outline mat-elevation-z0 ">
+
+            <div class="card-body">
+                <br>
+
+                <form [formGroup]="Reactiveform" (ngSubmit)="SaveData()" class="form">
+                
+                    <div class="row">
+                        <div class="col">
+                            <mat-form-field appearance="outline">
+                                <mat-label>Prenom</mat-label>
+                                <input matInput placeholder="Prenom" formControlName="prenom"  >
+                            </mat-form-field>
+                        </div>
+
+                        <div class="col">
+                            <mat-form-field appearance="outline">
+                                <mat-label>Nom</mat-label>
+                                <input matInput placeholder="Nom" formControlName="nom" >
+                            </mat-form-field>
+                        </div>
+
+
+                    </div>
+                    <br>
+                    <!-- <br> -->
+                    <div class="row">
+
+                        <div class="col">
+                            <mat-form-field appearance="outline">
+                                <mat-label>N° agent </mat-label>
+                                <input matInput disabled [value]="InfoAgent?.num" >
+                            </mat-form-field>
+                        </div>
+
+                        <div class="col">
+                            <mat-form-field appearance="outline">
+                                <mat-label>Telephone</mat-label>
+                                <span matPrefix>+221 &nbsp;</span>
+
+                                <input matInput placeholder="Téléphone" formControlName="telephone"   type="number" 
+                                    matInput placeholder="00-000-00-00" >
+                            </mat-form-field>
+                        </div>
+
+                    </div>
+                    <div>
+                    </div>
+                   
+                    <hr>
+                    <div class="form-element">
+                        <button mat-flat-button color="succes" type="submit" class="button"
+                         [disabled]="!Reactiveform.valid"   >
+                            Enregistrer </button>
+                    </div>
+                </form>
+
+
+
+
+            </div>
+            <!-- </div> -->
+            <!-- </div>
+                </div>
+            </div> -->
+        </div>
+
+    </div>
+</section>

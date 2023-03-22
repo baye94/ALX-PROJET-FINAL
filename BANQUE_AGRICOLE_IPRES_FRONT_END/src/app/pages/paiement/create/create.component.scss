@@ -1,0 +1,77 @@
+.addguichet{
+    background: green;
+    color: #fff;
+}
+
+.fill-remaining-space {
+    /* This fills the remaining space, by using flexbox. 
+       Every toolbar row uses a flexbox row layout. */
+    flex: 1 1 auto;
+  }
+  
+  .container {
+    padding: 10px;
+  }
+  
+  .form {
+    min-width: 150px;
+    max-width: 500px;
+    width: 100%;
+  }
+  
+  .form-element {
+    padding: 5px 0px 25px 2px;
+    width: 100%;
+  }
+  
+  .button {
+    width: 100%;
+  }
+  .bar{
+    background: #e83e8c;
+  }
+  .button{
+    background-color: #CAD402;
+    color: #fff;
+  }
+  .card-footer{
+    background: #fff;
+  }
+  
+  .eye{
+    margin:auto;
+    display: block;
+  }
+  .form{
+    margin: auto;
+    display: block;
+  }
+  
+
+
+  mat-list-option:hover{
+    text-decoration: none;
+    color: #555;
+    background-color: #f7f7f7;
+  }
+  mat-list-option:checked{
+    text-decoration: none;
+    color: #555;
+    background-color: white;
+  }
+  mat-list-option{
+    text-decoration: none;
+    color: #555;
+    background-color: white;
+  }
+  mat-list-option::selection{
+    text-decoration: none;
+    color: red;
+    background-color: white;
+  }
+ 
+  // tr:hover {
+  //   text-decoration: none;
+  //   color: #555;
+  //   background-color: #f7f7f7;
+  // }

@@ -1,0 +1,179 @@
+<section class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1 class="m-0 text-dark">Liste paiements</h1>
+      </div>
+        <div class="col-sm-6">
+          <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a routerLink="/CreatePaiement">Recherche paiement</a></li>
+            <li class="breadcrumb-item active">Liste paiement</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="content">
+    <div class="container-fluid">
+      <div class="card card-pink">
+        <div class="card-header">
+          <h3 class="card-title"> {{nom}}</h3>
+          <div class="card-tools">
+            <button type="button" class="btn btn-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
+              <i class="fa fa-minus"></i>
+            </button>
+            <button type="button" class="btn btn-tool" data-widget="remove" data-toggle="tooltip" title="Remove">
+              <i class="fa fa-times"></i>
+            </button>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="mat-elevation-z0">
+
+            <div class="container"  [hidden]="post == null">
+
+                <mat-table [dataSource]="dataSource" class="mat-elevation-z0" >
+              
+                  <ng-container matColumnDef="select">
+                    <mat-header-cell *matHeaderCellDef></mat-header-cell>
+                    <mat-cell *matCellDef="let row">
+                      <mat-checkbox (click)="$event.stopPropagation()" (change)="selectHandler(row)"
+                        [checked]="selection.isSelected(row)" >
+                      </mat-checkbox>
+                    </mat-cell>
+                  </ng-container>
+            
+                  <ng-container matColumnDef="salaire">
+                    <mat-header-cell *matHeaderCellDef> Salaire </mat-header-cell>
+                    <mat-cell *matCellDef="let element"> {{element.salaireBrut}} </mat-cell>
+                  </ng-container>
+              
+                  <ng-container matColumnDef="datepaie">
+                    <mat-header-cell *matHeaderCellDef> Date </mat-header-cell>
+                    <mat-cell *matCellDef="let element"> {{element.datePaiement}} </mat-cell>
+                  </ng-container>
+              
+                  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                  <mat-row *matRowDef="let row; columns: displayedColumns;">
+                  </mat-row>
+                 </mat-table>
+    
+              </div>             
+          </div>
+             <div class="card-footer">
+            <button mat-flat-button color="succes" type="submit" class="button" [hidden]="post?.length <=0"
+              data-toggle="modal" data-target="#modal-sm">
+              Continuer
+            </button> 
+          <button mat-flat-button  color="green" class="eye" data-toggle="modal"  [hidden]="post?.length > 0"
+              data-target="#modal-xl3">
+              <i class="fa fa-eye" aria-hidden="true"> Voir les details</i>
+            </button>           
+          </div>
+      
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="modal fade" id="modal-sm">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h6 class="modal-title">Renseignez le cni du pensionnaire</h6>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="AddExpense">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form [formGroup]="formGroupCni" (ngSubmit)="onSubmitCni(formGroupCni.value)" class="form" #closeAddExpenseModal>
+
+            <mat-form-field class="form-element">
+              <input type="number" matInput placeholder="CNI" formControlName="cni">
+              <mat-error *ngIf="!name2.valid && name2.touched">
+                {{ titleAlert }}
+              </mat-error>
+            </mat-form-field>
+
+
+
+            <div class="form-element">
+              <button mat-flat-button color="succes" type="submit" class="button" [disabled]="!formGroupCni.valid"  
+               >
+                Valider
+              </button>
+            </div>
+
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+  <div class="modal fade" id="modal-xl3">
+    <div class="modal-dialog modal-xl">
+      <div class="modal-content">
+        <div class="modal-header">
+          <!-- <h4 class="modal-title">Facture</h4> -->
+          <div class="row d-flex align-items-baseline">
+            <hr>
+          </div>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body" id="print-section">
+          <div class="card">
+            <div class="card-body">
+              <table mat-table matSort [dataSource]="dataSource2">
+
+                <ng-container matColumnDef="evenement">
+                  <th mat-sort-header mat-header-cell *matHeaderCellDef> No. </th>
+                  <td mat-cell *matCellDef="let element"> {{element.evenement}} </td>
+                </ng-container>
+
+
+                <ng-container matColumnDef="montant">
+                  <th mat-sort-header mat-header-cell *matHeaderCellDef> Montant </th>
+                  <td mat-cell *matCellDef="let element"> {{element.montant}} </td>
+                </ng-container>
+
+
+
+                <ng-container matColumnDef="idUser">
+                  <th mat-sort-header mat-header-cell *matHeaderCellDef> Agent </th>
+                  <td mat-cell *matCellDef="let element"> {{ element.idUser}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="dateCreation">
+                  <th mat-sort-header mat-header-cell *matHeaderCellDef> Date </th>
+                  <td mat-cell *matCellDef="let element"> {{ element.dateCreation}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="datePaiement">
+                  <th mat-sort-header mat-header-cell *matHeaderCellDef> Ficher </th>
+                  <td mat-cell *matCellDef="let element"> {{ element.datePaiement}} </td>
+                </ng-container>
+
+
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumnsPaiement"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumnsPaiement;"></tr>
+              </table>
+              <mat-paginator [pageSizeOptions]="[6, 50, 100]" showFirstLastButtons
+                aria-label="Select page of periodic elements">
+              </mat-paginator>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer justify-content-between">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+          <!-- <button type="button" class="btn btn-primary2">Save changes</button> -->
+        </div>
+      </div>
+    </div>
+  </div>

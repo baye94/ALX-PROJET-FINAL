@@ -1,0 +1,53 @@
+<!-- <div class="row">
+    <div class="col-12">
+      <mat-form-field>
+        dddddd
+        <textarea matInput 
+            placeholder="Motif" 
+            [formControl]="commentFC" 
+           >
+        </textarea>
+        <mat-error *ngIf="commentFC.hasError('required')">
+            Le motif d'annulation est obligatoire.
+        </mat-error>
+        <mat-error *ngIf="commentFC.hasError('maxlength')">
+            Max length is 30.
+        </mat-error>        
+      </mat-form-field>
+    </div>
+   </div> -->
+
+<h2 mat-dialog-title>Demande annulation de paiement</h2>
+<mat-dialog-content>
+    <mat-form-field>
+        <textarea matInput 
+            placeholder="Motif" 
+            [formControl]="commentFC"
+            rows="2"
+             cols="500"
+           >
+        </textarea>
+        <mat-error *ngIf="commentFC.hasError('required')">
+            Le motif d'annulation est obligatoire.
+        </mat-error>
+        <mat-error *ngIf="commentFC.hasError('maxlength')">
+            La longueur maximale est de 30.
+        </mat-error>        
+      </mat-form-field>
+</mat-dialog-content>
+<!-- <mat-dialog-actions> -->
+  <!-- <button mat-button mat-dialog-close>Cancel</button>
+  <button mat-button [mat-dialog-close]="true">Delete</button> -->
+  <div class="row">
+    <div class="col-6">
+        <button mat-flat-button color="succes" type="submit" class="button1" [mat-dialog-close]="true">
+            Annuler </button>
+        
+    </div>
+    <div class="col-6">
+        <button mat-flat-button color="succes" type="submit" class="button" (click)="DemandeAnnulationPaiement()"  [disabled]="commentFC.invalid" >
+            Approuver </button>
+        
+    </div>
+</div>
+<!-- </mat-dialog-actions> -->

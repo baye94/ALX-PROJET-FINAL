@@ -1,0 +1,145 @@
+<section class="content">
+
+
+    <div class="col-12 col-md-12 col-lg-12 order-2 order-md-1">
+        <div class="row">
+
+            <div class="col-12 col-sm-3 col-md-4">
+                <div class="info-box bg-light">
+                    <div class="info-box-content">
+                        <span class="info-box-text text-center text-muted">Agent</span>
+                        <span class="info-box-number text-center text-muted mb-0"> {{paiementdata?.agent}} </span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12 col-sm-4 col-md-4">
+                <div class="info-box bg-light">
+                    <div class="info-box-content">
+                        <span class="info-box-text text-center text-muted">N° Paiement</span>
+                        <span class="info-box-number text-center text-muted mb-0"> {{paiementdata?.paiement}} </span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12 col-sm-4 col-md-4">
+                <div class="info-box bg-light">
+                    <div class="info-box-content">
+                        <span class="info-box-text text-center text-muted mb-0">{{paiementdata?.motif}} Lorem ipsum
+                            dolor sit amet consectetur adipisicing elit. Vero, minima! Culpa ad, libero totam
+                            consectetur et quidem ratione numquam! Dolores accusamus quam qui earum perferendis
+                            cupiditate incidunt vero cum est! </span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <mat-accordion>
+
+        <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    Information du paiement
+                </mat-panel-title>
+
+            </mat-expansion-panel-header>
+
+            <table class="table table-striped projects">
+                <thead>
+                    <tr>
+                        <th style="width: 1%">
+                            #
+                        </th>
+                        <th style="width: 20%">
+                            N°
+                        </th>
+
+                        <th style="width: 30%">
+                            Agent
+                        </th>
+                        <th style="width: 30%">
+                            Guichet
+                        </th>
+                        <th style="width: 30%">
+                            Pensionnaire
+                        </th>
+                        <th style="width: 8%">
+                            Montant
+                        </th>
+                        <th style="width: 8%">
+                            Fichier
+                        </th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            #
+                        </td>
+                        <td>
+                            <a>
+                                {{evenement}}
+                            </a>
+                            <br />
+                            <small>
+                                {{dateCreation}}
+                            </small>
+                        </td>
+                        <td>
+                            <a>
+                                {{num}}
+                            </a>
+                            <br />
+                            <small>
+                                {{nom}}
+                            </small>
+                        </td>
+                        <td>
+                            <a>
+                                {{numGuichet}}
+                            </a>
+                            <br />
+                            <small>
+                                {{libelleGuichet}}
+                            </small>
+                        </td>
+
+                        <td>
+                            <a>
+                                {{matriculePensionnaire}}
+                            </a>
+                            <br />
+
+                        </td>
+                        <td class="project-state">
+                            {{ montant}}
+                        </td>
+                        <td class="project-state">
+                            {{ datePaiement}}
+                        </td>
+
+                    </tr>
+
+                </tbody>
+            </table>
+        </mat-expansion-panel>
+    </mat-accordion>
+    <br>
+    <hr>
+    <div class="row">
+        <div class="col-6">
+            <button mat-flat-button color="succes" type="submit" class="button1">
+                Désapprouver </button>
+        </div>
+        <div class="col-6">
+            <button mat-flat-button color="succes" type="submit" class="button"
+                (click)="ConfirmationAnnulationDePaiement()">
+                Approuver </button>
+        </div>
+    </div>
+
+
+</section>

@@ -1,0 +1,39 @@
+ <div class="row">
+    
+    <div class="col-md-12">
+        <table mat-table matSort [dataSource]="roleDataSource">
+
+            <ng-container matColumnDef="role">
+              <th  mat-header-cell *matHeaderCellDef>Liste des rôles de l'utilisateur</th>
+              <td mat-cell *matCellDef="let element"> {{element}} </td>
+            </ng-container>
+        
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          </table>
+    </div>
+
+ </div>
+   
+ <br>
+ <br>
+
+ <div >
+   <div class="row">
+    <div class="col-md-12">
+      <mat-form-field>
+        <mat-select placeholder="role" [formControl]="toppings" [(value)]="selectedToppings" multiple >
+          <mat-option *ngFor="let role of roleList" [value]="role.name" >{{role.name}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+   </div>
+      <div class="form-element">
+        <button mat-flat-button color="succes" type="submit" class="button" (click)="SaveRole(selectedToppings)">
+            Enregistrer </button>
+    </div>
+</div>
+  <!-- <p>
+    {{selectedToppings | json}}
+  </p>
+   -->

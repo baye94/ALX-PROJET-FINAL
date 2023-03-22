@@ -1,0 +1,106 @@
+<ngx-ui-loader> </ngx-ui-loader>
+<div class="content-header">
+  <div class="container-fluid">
+    <div class="row mb-2">
+      <div class="col-sm-6">
+        <h1 class="m-0 text-dark">Fichier</h1>
+      </div>
+      <div class="col-sm-6">
+        <ol class="breadcrumb float-sm-right">
+          <li class="breadcrumb-item"><a routerLink="/parametre">Paramétre</a></li>
+          <li class="breadcrumb-item active">Liste Fichiers</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</div>
+
+<section class="content">
+  <!-- <div class="container "> -->
+  <div class="mat-elevation-z8">
+    <div class="card">
+      <div class="card-header  pt-4">
+        <div class="row">
+          <div class="col-sm-12 col-md-9">
+            <form ng-submit="search()" class="form-horizontal">
+              <div class="form-group">
+                <div class="col-md-12">
+                  <div class="input-group">
+                    <input data-ng-model="searchText" type="text" placeholder="Recherche" class="form-control unstyled"
+                      (keyup)="Filterchange($event)" />
+                    <span class="input-group-btn">
+                      <button class="btn btn-primary2 form-control">
+                        <span class="fa fa-search"></span>
+                      </button>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="col-sm-12  col-md-3">
+            <a class="btn btn-primary2 pull-right" routerLink="/uploadfile"><i class="fa fa-plus"></i> Ajouter </a>
+            &nbsp;&nbsp;
+
+          </div>
+        </div>
+      </div>
+      <div class="mat-elevation-z1 ">
+        <div class="card-body">
+          <table mat-table matSort [dataSource]="fileDataSource">
+
+            <ng-container matColumnDef="nom">
+              <th mat-sort-header mat-header-cell *matHeaderCellDef> Fichier </th>
+              <td mat-cell *matCellDef="let element"> {{element.nom}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="datePourPaiement">
+              <th mat-sort-header mat-header-cell *matHeaderCellDef> Date </th>
+              <td mat-cell *matCellDef="let element"> {{ element.datePourPaiement}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="num">
+              <th mat-sort-header mat-header-cell *matHeaderCellDef> N. Agent </th>
+              <td mat-cell *matCellDef="let element"> {{ element.num}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="prenom">
+              <th mat-sort-header mat-header-cell *matHeaderCellDef> Prenom </th>
+              <td mat-cell *matCellDef="let element"> {{ element.prenom}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="nomUser">
+              <th mat-sort-header mat-header-cell *matHeaderCellDef> Nom </th>
+              <td mat-cell *matCellDef="let element"> {{ element.nomUser}} </td>
+            </ng-container>
+
+
+            <ng-container matColumnDef="dateAjout">
+              <th mat-sort-header mat-header-cell *matHeaderCellDef> Date Ajout </th>
+              <td mat-cell *matCellDef="let element"> {{element.dateAjout}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="action">
+              <th mat-header-cell *matHeaderCellDef> Action </th>
+              <td mat-cell *matCellDef="let element">
+                <button (click)="SaveMetaDataFile(element.id)" [routerLink]="['/detailuploadFile']" mat-flat-button
+                  color="green" class="eye">
+                  <i class="fa fa-eye" aria-hidden="true"></i>
+                </button> <span class="trait"> | </span>
+
+              </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          </table>
+
+          <mat-paginator [pageSizeOptions]="[6, 50, 100]" showFirstLastButtons
+            aria-label="Select page of periodic elements">
+          </mat-paginator>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- </div> -->
+</section>

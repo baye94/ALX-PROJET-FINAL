@@ -1,0 +1,60 @@
+<div class="content-header">
+  <div class="container-fluid">
+      <div class="row mb-2">
+          <div class="col-sm-6">
+              <h1 class="m-0 text-dark">Fichier</h1>
+          </div>
+          <div class="col-sm-6">
+              <ol class="breadcrumb float-sm-right">
+                  <li class="breadcrumb-item"><a routerLink="/parametre">Paramétre</a></li>
+                  <li class="breadcrumb-item active">Liste Fichiers</li>
+              </ol>
+          </div>
+      </div>
+  </div>
+</div>
+
+
+<!-- <input type="text" (change)="getName(name)" #name /> <br/>
+<input type="file" (change)="getFile($event)" #name /> <br/>
+<input type="button" value="upload file"  (click)="uploadExcelFile()"/>
+ -->
+
+
+<section class="content">
+  <div class="container">
+    <div class="card card-pink card-outline mat-elevation-z8 ">
+      <div class="card-header">
+        <!-- <h3 class="card-title">Ajouter un nouveau partenaire</h3> -->
+      </div>
+      <div class="card-body">
+        <div class="container ">
+          <div class="card">
+            <div class="card-body">
+
+              <div class="file-upload">
+  
+                <button class="file-upload-btn" type="button" (click)="uploadExcelFile()"> Envoyer </button>
+              
+                <div class="file-upload-placeholder">
+                  <input class="file-upload-input" type='file' (change)="getFile($event)" #name />
+                  <div class="drag-text">
+                    <h3>Drag and drop ou selectionner le fichier</h3>
+                  </div>
+                </div>
+                
+              </div>
+              <h4 class="text-align-center">{{name.value}}</h4>
+              <!-- <input type="file" (change)="getFile($event)" #name /> <br/>
+              <input type="button" value="upload file"  (click)="uploadExcelFile()"/> -->
+              <mat-progress-bar mode="determinate" [value]="uploadProgress" [hidden]=" isload == 0 "></mat-progress-bar>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- <script class="jsbin" src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script> -->

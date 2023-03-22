@@ -1,0 +1,47 @@
+<h1 mat-dialog-title>Employee</h1>
+<form [formGroup]="Reactiveform" (ngSubmit)="SaveAgence()" >
+    <div mat-dialog-content>
+        <mat-form-field>
+            <mat-label>Id</mat-label>
+            <input type="text" placeholder="id" matInput formControlName="id">
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>No</mat-label>
+            <input placeholder="numAgence" type="text" matInput formControlName="numAgence" >
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Libelle</mat-label>
+            <input placeholder="libelle" type="text" matInput formControlName="libelle">
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Adresse</mat-label>
+            <input placeholder="adresse" type="text" matInput formControlName="adresse">
+        </mat-form-field>
+       
+        <mat-form-field>
+            <mat-label>IdPartenaire</mat-label>
+            <input placeholder="idPartenaire" type="number" matInput formControlName="idPartenaire">
+        </mat-form-field>
+        <!-- <mat-form-field>
+            <mat-label>Designation</mat-label>
+           <mat-select formControlName="designation">
+<mat-option *ngFor="let item of desdata" [value]="item.code">
+{{item.name}}
+</mat-option>
+           </mat-select>
+        </mat-form-field> -->
+        <!-- <mat-radio-group formControlName="gender" aria-label="Select an Gender">
+            <mat-radio-button value="M">Male</mat-radio-button>
+            <mat-radio-button value="F">Female</mat-radio-button>
+          </mat-radio-group>
+          <section class="example-section">
+            <br>
+            <mat-checkbox formControlName="isactive" class="example-margin">Is Active</mat-checkbox>
+          </section> -->
+ 
+    </div>
+    <div mat-dialog-actions>
+      <button mat-flat-button color="warn" mat-dialog-close>Close</button>
+      <button type="submit" mat-flat-button color="primary"  >Save</button>
+    </div>
+</form>

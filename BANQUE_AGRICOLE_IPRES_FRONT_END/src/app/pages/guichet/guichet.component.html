@@ -1,0 +1,120 @@
+<div class="content-header">
+  <div class="container-fluid">
+      <div class="row mb-2">
+          <div class="col-sm-6">
+              <h1 class="m-0 text-dark">Guichets</h1>
+          </div>
+          <div class="col-sm-6">
+              <ol class="breadcrumb float-sm-right">
+                  <li class="breadcrumb-item"><a href="#">Home</a></li>
+                  <li class="breadcrumb-item active">Guichets</li>
+              </ol>
+          </div>
+      </div>
+  </div>
+</div>
+<section class="content">
+<!-- <div class="container "> -->
+  <div class="mat-elevation-z8">
+    <div class="card">
+      <div class="card-header  pt-4">
+        <div class="row">
+          <div class="col-sm-12 col-md-9">
+            <form ng-submit="search()" class="form-horizontal">
+              <div class="form-group">
+                <div class="col-md-12">
+                  <div class="input-group">
+                    <input data-ng-model="searchText" type="text" placeholder="Recherche" class="form-control unstyled"
+                      (keyup)="Filterchange($event)" />
+                    <span class="input-group-btn">
+                      <button class="btn btn-primary2 form-control">
+                        <span class="fa fa-search"></span>
+                      </button>
+                    </span>
+                    <div class="checkbox form-control">
+                      <label for="showAll">
+                        <input type="checkbox" id="showAll" name="showAll" ng-model="showClosed">
+                        &nbsp; Active  
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="col-sm-12  col-md-3">
+            <a class="btn btn-primary2 pull-right" (click)="OpenDialogCreate('1000ms','500ms')"
+             ><i class="fa fa-plus"></i> Ajouter </a> &nbsp;&nbsp;
+            <!-- <a href="#/bulkimportclients" style="margin-right: 5px" class="btn btn-primary2 pull-right"
+             ><i class="fa fa-upload"></i>&nbsp; Importer </a> -->
+          </div>
+    </div>
+      </div>
+        <div class="mat-elevation-z1 ">
+        <div class="card-body">
+          <table mat-table matSort [dataSource]="dataSource">
+
+            <ng-container matColumnDef="numGuichet">
+              <th mat-sort-header mat-header-cell *matHeaderCellDef> No. </th>
+              <td mat-cell *matCellDef="let element"> {{element.numGuichet}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="libelle">
+              <th mat-sort-header mat-header-cell *matHeaderCellDef> Libelle </th>
+              <td mat-cell *matCellDef="let element"> {{element.libelle}} </td>
+            </ng-container>
+           
+            <ng-container matColumnDef="agenceNum">
+              <th mat-sort-header mat-header-cell *matHeaderCellDef> Agence </th>
+              <td mat-cell *matCellDef="let element"> {{ element.idAgence}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="date">
+              <th mat-sort-header mat-header-cell *matHeaderCellDef> Date création </th>
+              <td mat-cell *matCellDef="let element"> {{ element.dateCreate}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="statut">
+              <th mat-sort-header mat-header-cell *matHeaderCellDef> Statut </th>
+              <td mat-cell *matCellDef="let element"> 
+                
+                <button mat-mini-fab color="warn" aria-label="Example icon button with a filter list icon" class="fermer" *ngIf="element.status == 0">
+                  <!-- <mat-icon>home</mat-icon> -->
+                </button>
+                <button mat-mini-fab color="accent" aria-label="Example icon button with a filter list icon" class="actif" *ngIf="element.status == 1">
+                  <!-- <mat-icon>home</mat-icon> -->
+                </button>             
+              </td>
+
+              
+            </ng-container>
+
+            <ng-container matColumnDef="action">
+              <th mat-header-cell *matHeaderCellDef> Action </th>
+              <td mat-cell *matCellDef="let element">
+                <button (click)="SaveMetaData(element.id)" [routerLink]="['/viewGuichet']" mat-flat-button
+                  color="green" class="eye">
+                  <i class="fa fa-eye" aria-hidden="true"></i>
+                </button> <span class="trait"> | </span>
+        
+                <button mat-flat-button color="warn" (click)="OpenDialogDeactiverGuichet('10ms','10ms',element.id ,element.status)" class="test">
+                  <i *ngIf="element.status == 0 " class="fa fa-lock" aria-hidden="true"></i>
+                  <i *ngIf="element.status == 1 " class="fa fa-lock-open" aria-hidden="true"></i>
+                </button> 
+              </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          </table>
+
+          <mat-paginator [pageSizeOptions]="[5, 50, 100]" showFirstLastButtons
+            aria-label="Select page of periodic elements">
+          </mat-paginator>
+
+        </div>
+        </div>
+      </div>
+    </div>
+  <!-- </div> -->
+</section>

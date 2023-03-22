@@ -1,0 +1,221 @@
+
+
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1 class="m-0 text-dark">Dashboard</h1>
+            </div>
+            <!-- /.col -->
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item active">Dashboard</li>
+                </ol>
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+    </div>
+    <!-- /.container-fluid -->
+</div>
+<!-- /.content-header -->
+
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/sunburst.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script src="https://code.highcharts.com/modules/export-data.js"></script>
+<script src="https://code.highcharts.com/modules/accessibility.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<section class="content">
+    <div class="card card-pink card-outline ">
+        <div class="card-body  ">
+    <br>
+
+    <div class="row">
+      <div class="col-3">
+        <mat-card fxFlex="25">
+          <app-widget-card label="Utilisateurs" total="30" percentage="50" [data]="cards"></app-widget-card>
+      </mat-card>
+      </div>
+      <div class="col-3">
+        <mat-card fxFlex="25">
+          <app-widget-card label="Nombre Paiement" total="300" percentage="40" [data]="cards"></app-widget-card>
+      </mat-card>
+      </div>
+      <div class="col-3">
+        <mat-card fxFlex="25">
+          <app-widget-card label="Montant Paiements" total="8M" percentage="30" [data]="cards"></app-widget-card>
+      </mat-card>
+      </div>
+      <div class="col-3">
+        <mat-card fxFlex="25">
+          <app-widget-card label="Annulation" total="25" percentage="20" [data]="cards"></app-widget-card>
+      </mat-card>
+      </div>
+      </div>
+
+      <br>
+
+
+    <div>
+        <app-widget-area [data]="bigChart"></app-widget-area>
+    </div>
+    
+    <br>
+    
+    <mat-divider></mat-divider>
+    
+    <br>
+
+   
+
+    
+    <!-- <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="20px" class="stats-cards">
+        <mat-card fxFlex="25">
+            <app-widget-card label="New Users" total="12k" percentage="50" [data]="cards"></app-widget-card>
+        </mat-card>
+        <mat-card fxFlex="25">
+            <app-widget-card label="Users retention" total="10k" percentage="40" [data]="cards"></app-widget-card>
+        </mat-card>
+        <mat-card fxFlex="25">
+            <app-widget-card label="Users engagement" total="8k" percentage="30" [data]="cards"></app-widget-card>
+        </mat-card>
+        <mat-card fxFlex="25">
+            <app-widget-card label="Referral" total="6k" percentage="20" [data]="cards"></app-widget-card>
+        </mat-card>
+    </div> -->
+    
+    <br>
+    
+    <mat-divider></mat-divider>
+    
+    <br>
+    
+    <!-- <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="20px">
+        <div fxFlex="60">
+            <div class="mat-elevation-z8">
+                <table mat-table [dataSource]="dataSource">
+    
+                    <ng-container matColumnDef="position">
+                        <th mat-header-cell *matHeaderCellDef> No. </th>
+                        <td mat-cell *matCellDef="let element"> {{element.position}} </td>
+                    </ng-container>
+    
+                    <ng-container matColumnDef="name">
+                        <th mat-header-cell *matHeaderCellDef> Name </th>
+                        <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+                    </ng-container>
+    
+                    <ng-container matColumnDef="weight">
+                        <th mat-header-cell *matHeaderCellDef> Weight </th>
+                        <td mat-cell *matCellDef="let element"> {{element.weight}} </td>
+                    </ng-container>
+    
+                    <ng-container matColumnDef="symbol">
+                        <th mat-header-cell *matHeaderCellDef> Symbol </th>
+                        <td mat-cell *matCellDef="let element"> {{element.symbol}} </td>
+                    </ng-container>
+    
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                </table>
+    
+                <mat-paginator [pageSizeOptions]="[5, 10, 20]"></mat-paginator>
+            </div>
+    
+        </div>
+        <div fxFlex="40">
+            <app-widget-pie [data]="pieChart"></app-widget-pie>
+        </div>
+    </div> -->
+    
+    <!-- <br>
+    <br>
+    <br>
+
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.js"></script>
+<script src="https://code.highcharts.com/stock/highstock.js"></script>
+<script src="https://code.highcharts.com/stock/modules/data.js"></script>
+
+
+<div class="wrapper">
+  <div id="date-picker"></div>
+  <div class="custom-tooltip">
+  <div id="tooltip-header"></div>
+  <div id="tooltip-values">
+    <div class="col-left">
+    <div id="open-value" class="info-cell">
+      <div>Opening Price</div>
+      <strong id="openCell"></strong>
+    </div>
+    <div id="low-value" class="info-cell">
+      <div>Day's High</div>
+      <strong id="highCell"></strong>
+    </div>
+    </div>
+    <div class="col-right">
+    <div id="high-value" class="info-cell">
+      <div>Day's Low</div>
+      <strong id="lowCell"></strong>
+    </div>
+    <div id="close-value" class="info-cell">
+      <div>Closing Price</div>
+      <strong id="closeCell"></strong>
+    </div>
+    </div>
+  </div>
+  </div>
+  <div id="chart-container" class="chart"></div>
+</div> -->
+</div>
+</div>
+    
+</section>
+
+
+
+
+
+
+
+
+
+

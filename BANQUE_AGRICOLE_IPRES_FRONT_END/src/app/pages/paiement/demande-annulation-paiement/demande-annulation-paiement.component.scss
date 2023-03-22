@@ -1,0 +1,17 @@
+.button ,.button1,.d{
+    width: 100%;
+  }
+  .button1{
+    background: red;
+    color:white
+  }
+  .button{
+    background: green;
+    color: white;
+  }
+
+  mat-form-field {
+    min-width: 150px;
+    max-width: 500px;
+    width: 100%;
+  }

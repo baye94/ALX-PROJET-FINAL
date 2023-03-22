@@ -1,0 +1,10 @@
+.list-group-item:hover{
+  pointer-events: auto;
+  cursor: pointer; /* SVG-only */
+}
+table {
+    width: 100%;
+  }
+  th {
+    text-align: left;
+  }

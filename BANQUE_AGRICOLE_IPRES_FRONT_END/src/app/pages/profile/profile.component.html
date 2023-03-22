@@ -1,0 +1,281 @@
+<section class="content-header">
+  <div class="container-fluid">
+    <div class="row mb-2">
+      <div class="col-sm-6">
+        <h1>Profile</h1>
+      </div>
+      <div class="col-sm-6">
+        <ol class="breadcrumb float-sm-right">
+          <li class="breadcrumb-item"><a href="#">Home</a></li>
+          <li class="breadcrumb-item active">Profile</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-3">
+        <div class="card card-pink card-outline">
+          <div class="card-body box-profile">
+            <div class="text-center">
+              <pf-image class="user-img" src="/assets/img/default-profile.png" alt="User profile picture" width="100"
+                height="100" rounded></pf-image>
+            </div>
+            <h3 class="profile-username text-center">
+              {{prenom}} {{nom}}
+            </h3>
+            <p class="text-muted text-center">{{num}} </p>
+            <ul class="list-group list-group-unbordered mb-3">
+              <li class="list-group-item">
+                <b>Montant Tolal</b>
+                <a class="float-right"> {{montantTotal || 0 }} </a>
+              </li>
+              <li class="list-group-item">
+                <b>Transactions</b> <a class="float-right"> {{nombreTotalTransaction || 0 }} </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="card card-pink card-outline ">
+          <div class="card-header">
+            <h3 class="card-title">Rôles</h3>
+          </div>
+          <div class="card-body">
+            <div *ngFor="let item of roleData">
+              <strong><i class="fas fa-lock-open mr-1"></i> {{item}} </strong>
+              <hr />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-9 ">
+        <div class="card ">
+          <div class="card-header p-2">
+            <ul class="nav nav-pills">
+              <li class="nav-item">
+                <a class="nav-link active" href="#timeline" data-toggle="tab">Activité</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#settings" data-toggle="tab">Paiement</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#bilan" data-toggle="tab">Bilan</a>
+              </li>
+            </ul>
+          </div>
+          <div class="card-body ">
+            <div class="tab-content ">
+              <div class=" active tab-pane scroll" id="timeline">
+                <div class="timeline timeline-inverse" *ngFor="let item of journalisationData">
+                  <div class="time-label">
+                    <span class="bg-danger">
+                      {{item.date.substring(0,10)}}
+                    </span>
+                  </div>
+
+                  <div *ngFor="let j of item.actions">
+                    <i class="fas fa-envelope bg-primary"></i>
+
+                    <div class="timeline-item">
+                      <span class="time"><i class="far fa-clock"></i>
+                        {{j.heure.substring(10)}}</span>
+
+                      <h3 class="timeline-header">
+                        {{j.action}}
+                      </h3>
+
+                    </div>
+                  </div>
+
+                  <div>
+                    <i class="far fa-clock bg-gray"></i>
+                  </div>
+                </div>
+              </div>
+
+              <div class="tab-pane" id="settings">
+                <div class="mat-elevation-z1" [hidden]="paiementAgentData?.length<= 0">
+
+
+                  <table mat-table matSort [dataSource]="paiementAgentDataSource">
+
+                    <ng-container matColumnDef="evenement">
+                      <th mat-sort-header mat-header-cell *matHeaderCellDef> No. </th>
+                      <td mat-cell *matCellDef="let element"> {{element.evenement}} </td>
+                    </ng-container>
+
+
+                    <ng-container matColumnDef="montant">
+                      <th mat-sort-header mat-header-cell *matHeaderCellDef> Montant </th>
+                      <td mat-cell *matCellDef="let element"> {{element.montant}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="matriculePensionnaire">
+                      <th mat-sort-header mat-header-cell *matHeaderCellDef> Pensionnaire </th>
+                      <td mat-cell *matCellDef="let element"> {{ element.matriculePensionnaire}}
+                      </td>
+                    </ng-container>
+
+
+                    <ng-container matColumnDef="dateCreation">
+                      <th mat-sort-header mat-header-cell *matHeaderCellDef> Date </th>
+                      <td mat-cell *matCellDef="let element"> {{ element.dateCreation}} </td>
+                    </ng-container>
+
+
+                    <ng-container matColumnDef="status">
+                      <th mat-sort-header mat-header-cell *matHeaderCellDef> Status </th>
+                      <!-- {{ element.status}} -->
+                      <td mat-cell *matCellDef="let element">
+                        <button mat-mini-fab color="warn" aria-label="Example icon button with a filter list icon"
+                          class="fermer" *ngIf="element.statut == 0">
+                          <!-- <mat-icon>home</mat-icon> -->
+                        </button>
+                        <button mat-mini-fab color="accent" aria-label="Example icon button with a filter list icon"
+                          class="actif" *ngIf="element.statut == 1">
+                          <!-- <mat-icon>home</mat-icon> -->
+                        </button>
+
+
+                      </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="datePaiement">
+                      <th mat-sort-header mat-header-cell *matHeaderCellDef> Fichier </th>
+                      <td mat-cell *matCellDef="let element"> {{ element.datePaiement}} </td>
+                    </ng-container>
+
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                  </table>
+                  <mat-paginator [pageSizeOptions]="[8, 25, 50,100]" showFirstLastButtons
+                    aria-label="Select page of periodic elements">
+                  </mat-paginator>
+                </div>
+              </div>
+              <div class=" tab-pane" id="bilan">
+                <section class="content">
+
+                  <div class="card card-pink card-outline mat-elevation-z2">
+                    <div class="card-body">
+                      <div class="container ">
+                        <div class="card">
+                          <div class="card-body">
+
+                            <div class="row">
+                              <div class="col-md-4">
+                                <mat-form-field appearance="standard">
+                                  <mat-label> Choisir la date </mat-label>
+                                  <mat-date-range-input [rangePicker]="dateRangePicker">
+                                    <input matStartDate placeholder="Date début" #dateRangeStart>
+                                    <input matEndDate placeholder="Date fin" #dateRangeEnd>
+                                    <!-- (dateChange)="dateRangeChange(dateRangeStart, dateRangeEnd)" -->
+                                  </mat-date-range-input>
+                                  <mat-datepicker-toggle matPrefix [for]="dateRangePicker">
+                                  </mat-datepicker-toggle>
+
+                                  <mat-date-range-picker #dateRangePicker>
+                                    <mat-datepicker-actions>
+                                      <button mat-button matDatepickerCancel>Annuller</button>
+                                      <button mat-raised-button color="primary" matDatepickerApply
+                                        (click)="OnSubmit(dateRangeStart, dateRangeEnd)">Rechercher</button>
+                                    </mat-datepicker-actions>
+                                  </mat-date-range-picker>
+                                </mat-form-field>
+
+                              </div>
+                              <div class="col-md-8" [hidden]=" taille <= 0 ">
+                                <div class="row">
+
+                                  <div class="col-md-6">
+                                    <p>Transactions</p>
+                                  </div>
+                                  <div class="col-md-6">
+                                    <p>Nombre</p>
+                                  </div>
+                                </div>
+                                <div class="row">
+                                  <div class="col-md-6">
+                                    <h6>{{montant}} </h6>
+                                  </div>
+                                  <div class="col-md-6">
+                                    <h6> {{nombre}} </h6>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </section>
+
+                <section class="content" [hidden]=" taille <= 0 ">
+                  <div class="container">
+                    <div class="card card-pink card-outline mat-elevation-z2 ">
+                      <div class="card-header">
+                        <button mat-raised-button color="primary" class="excel" (click)="exportexcel()">Excel</button>
+                      </div>
+                      <div class="card-body">
+
+                        <table mat-table matSort [dataSource]="dataSource" id="excel-table">
+                          <ng-container matColumnDef="evenement">
+                            <th mat-sort-header mat-header-cell *matHeaderCellDef> No. </th>
+                            <td mat-cell *matCellDef="let element"> {{element.evenement}} </td>
+                          </ng-container>
+
+
+                          <ng-container matColumnDef="montant">
+                            <th mat-sort-header mat-header-cell *matHeaderCellDef> Montant </th>
+                            <td mat-cell *matCellDef="let element"> {{element.montant}} </td>
+                          </ng-container>
+
+                          <ng-container matColumnDef="matricule">
+                            <th mat-sort-header mat-header-cell *matHeaderCellDef> Pensionnaire </th>
+                            <td mat-cell *matCellDef="let element"> {{element.matriculePensionnaire}} </td>
+                          </ng-container>
+
+
+                          <ng-container matColumnDef="guichet">
+                            <th mat-sort-header mat-header-cell *matHeaderCellDef> Guichet </th>
+                            <td mat-cell *matCellDef="let element"> {{ element.idGuichet}} </td>
+                          </ng-container>
+
+                          <ng-container matColumnDef="agence">
+                            <th mat-sort-header mat-header-cell *matHeaderCellDef> Agence </th>
+                            <td mat-cell *matCellDef="let element"> {{ element.agence}} </td>
+                          </ng-container>
+
+                          <ng-container matColumnDef="dateCreation">
+                            <th mat-sort-header mat-header-cell *matHeaderCellDef> Date </th>
+                            <td mat-cell *matCellDef="let element"> {{ element.dateCreation}} </td>
+                          </ng-container>
+
+                          <ng-container matColumnDef="fichier">
+                            <th mat-sort-header mat-header-cell *matHeaderCellDef> fichier </th>
+                            <td mat-cell *matCellDef="let element"> {{ element.datePaiement}} </td>
+                          </ng-container>
+
+                          <tr mat-header-row *matHeaderRowDef="displayedColumnsPaiementList"></tr>
+                          <tr mat-row *matRowDef="let row; columns: displayedColumnsPaiementList;"></tr>
+                        </table>
+                        <mat-paginator [pageSizeOptions]="[6, 50, 100]" showFirstLastButtons
+                          aria-label="Select page of periodic elements">
+                        </mat-paginator>
+
+                      </div>
+                    </div>
+
+                  </div>
+                </section>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

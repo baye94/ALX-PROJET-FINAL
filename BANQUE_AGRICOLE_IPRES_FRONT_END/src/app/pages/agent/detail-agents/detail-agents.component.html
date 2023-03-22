@@ -1,0 +1,238 @@
+<div class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1 class="m-0 text-dark"> Detail utilisateur </h1>
+        </div>
+        <!-- /.col -->
+        <div class="col-sm-6">
+          <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a routerLink="/listagent">utilisateurs</a></li>
+            <li class="breadcrumb-item active">Detail Utilisateur</li>
+          </ol>
+        </div>
+        <!-- /.col -->
+      </div>
+      <!-- /.row -->
+    </div>
+    <!-- /.container-fluid -->
+  </div>
+  <section class="content">
+    <div class="centent ">
+      <div class="card">
+        <div class="card-header">
+          <div class="card-tools">
+            <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+              <i class="fas fa-minus"></i>
+            </button>
+            <button type="button" class="btn btn-tool" data-card-widget="remove" title="Remove">
+              <i class="fas fa-times"></i>
+            </button>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-12 col-md-12 col-lg-12 order-2 order-md-1">
+              <div class="row">
+  
+                <div class="col-12 col-sm-4 col-md-3">
+                  <div class="info-box bg-light">
+                    <div class="info-box-content">
+                      <span class="info-box-text text-center text-muted"> {{NumAgence}} </span>
+                      <span class="info-box-number text-center text-muted mb-0">{{ LibelleAgence }}</span>
+                    </div>
+                  </div>
+                </div>
+  
+                <div class="col-12 col-sm-3 col-md-3">
+                  <div class="info-box bg-light">
+                    <div class="info-box-content">
+                      <span class="info-box-text text-center text-muted">{{guichet?.numGuichet }}</span>
+                      <span class="info-box-number text-center text-muted mb-0"> {{guichet?.libelle}} </span>
+                    </div>
+                  </div>
+                </div>
+  
+                <div class="col-12 col-sm-4 col-md-3">
+                  <div class="info-box bg-light">
+                    <div class="info-box-content">
+                      <span class="info-box-text text-center text-muted">Nombre Paiement</span>
+                      <span class="info-box-number text-center text-muted mb-0"> {{ transactions || 0 }} </span>
+                    </div>
+                  </div>
+                </div>
+  
+                <div class="col-12 col-sm-4 col-md-3">
+                  <div class="info-box bg-light">
+                    <div class="info-box-content">
+                      <span class="info-box-text text-center text-muted">Montant Total</span>
+                      <span class="info-box-number text-center text-muted mb-0"> {{montant || 0}} </span>
+                    </div>
+                  </div>
+                </div>
+  
+              </div>
+            </div>
+  
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="content ">
+      <div class="row">
+        <div class="col-12 ">
+          <div class="card card-pink card-outline card-tabs">
+            <div class="card-header p-0 pt-1 border-bottom-0">
+              <ul class="nav nav-tabs" id="custom-tabs-three-tab" role="tablist">
+                <li class="nav-item">
+                  <a class="nav-link active" id="custom-tabs-three-home-tab" data-toggle="pill"
+                    href="#custom-tabs-three-home" role="tab" aria-controls="custom-tabs-three-home"
+                    aria-selected="true">Paiements</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" id="custom-tabs-three-messages-tab" data-toggle="pill"
+                    href="#custom-tabs-three-messages" role="tab" aria-controls="custom-tabs-three-messages"
+                    aria-selected="false">Paramétres</a>
+                </li>
+              </ul>
+            </div>
+            <div class="card-body">
+              <div class="tab-content" id="custom-tabs-three-tabContent">
+                <div class="tab-pane fade show active" id="custom-tabs-three-home" role="tabpanel"
+                  aria-labelledby="custom-tabs-three-home-tab">
+                  <div [hidden]="paiementData?.length >0">
+                    <h6 > L'agent n'a pas encore enregistrer aucun paiement </h6>
+                  </div>
+                  <div class="mat-elevation-z1" [hidden]="paiementData?.length<= 0">
+  
+  
+                    <table mat-table matSort [dataSource]="paiementDataSource">
+  
+                      <ng-container matColumnDef="evenement">
+                        <th mat-sort-header mat-header-cell *matHeaderCellDef> No. </th>
+                        <td mat-cell *matCellDef="let element"> {{element.evenement}} </td>
+                      </ng-container>
+  
+  
+                      <ng-container matColumnDef="montant">
+                        <th mat-sort-header mat-header-cell *matHeaderCellDef> Montant </th>
+                        <td mat-cell *matCellDef="let element"> {{element.montant}} </td>
+                      </ng-container>
+  
+                      <ng-container matColumnDef="matriculePensionnaire">
+                        <th mat-sort-header mat-header-cell *matHeaderCellDef> Pensionnaire </th>
+                        <td mat-cell *matCellDef="let element"> {{ element.matriculePensionnaire}} </td>
+                      </ng-container>
+  
+  
+                      <ng-container matColumnDef="dateCreation">
+                        <th mat-sort-header mat-header-cell *matHeaderCellDef> Date </th>
+                        <td mat-cell *matCellDef="let element"> {{ element.dateCreation}} </td>
+                      </ng-container>
+  
+  
+                      <ng-container matColumnDef="status">
+                        <th mat-sort-header mat-header-cell *matHeaderCellDef> Status </th>
+                        <td mat-cell *matCellDef="let element"> {{ element.statut}} </td>
+                      </ng-container>
+  
+  
+                      <ng-container matColumnDef="datePaiement">
+                        <th mat-sort-header mat-header-cell *matHeaderCellDef> Fichier </th>
+                        <td mat-cell *matCellDef="let element"> {{ element.datePaiement}} </td>
+                      </ng-container>
+  
+                      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                    </table>
+                    <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons
+                      aria-label="Select page of periodic elements">
+                    </mat-paginator>
+  
+  
+                  </div>
+                </div>
+  
+                <div class="tab-pane fade" id="custom-tabs-three-messages" role="tabpanel"
+                  aria-labelledby="custom-tabs-three-messages-tab">
+                  <div class="mat-elevation-z1">
+                    <div class="content">
+                      <div class="toolbar">
+                        <!-- <h4>Paramétrage System</h4> -->
+                      </div>
+                      <div class="card-body">
+                        <div class="row">
+                          <div class="col-sm-6 col-md-6">
+                            <div class="list-group">
+                              <a class="list-group-item" (click)="OpenDialogCreateGuichet('1000ms','500ms')">
+                                <h4 class="list-group-item-heading"><i
+                                    class="fa fa-large fa fa-cash-register"></i>&nbsp;&nbsp;Guichet</h4>
+  
+                                <p class="list-group-item-text"> Affectation á un nouveau guichet </p>
+                              </a>
+                              <a class="list-group-item" data-toggle="modal" data-target="#modal-sm">
+                                <h4 class="list-group-item-heading"><i
+                                    class="fa fa-large fa fa-lock"></i>&nbsp;&nbsp;Rôles</h4>
+                                <p class="list-group-item-text">Liste des rôles de l'agent.
+                                </p>
+                              </a>
+                            
+                            </div>
+  
+                          </div>
+                          <div class="col-sm-6 col-md-6">
+                            <div class="list-group">
+                      
+                              <a class="list-group-item" routerLink="/bilanagent">
+                                <h4 class="list-group-item-heading"><i class="fa fa-large fa fa-folder"></i>&nbsp;&nbsp;
+                                  Bilan
+                                </h4>
+  
+                                <p class="list-group-item-text">Retracer l'historique des transactions effectuer par l'agent</p>
+                              </a>
+  
+                            </div>
+  
+                          </div>
+  
+                        </div>
+  
+                      </div>
+                    </div>
+  
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+
+  <div class="modal fade" id="modal-sm">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+        <div class="modal-body">
+            <div class="col-md-12">
+                <table mat-table matSort [dataSource]="roleDataSource">
+        
+                    <ng-container matColumnDef="role">
+                      <th  mat-header-cell *matHeaderCellDef>Liste des rôles de l'agent</th>
+                      <td mat-cell *matCellDef="let element"> {{element}} </td>
+                    </ng-container>
+                
+                    <tr mat-header-row *matHeaderRowDef="displayedColumnsrole"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumnsrole;"></tr>
+                  </table>
+            </div>
+
+        </div>
+        <!-- <div class="modal-footer justify-content-between">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+        </div> -->
+      </div>
+    </div>
+  </div>
